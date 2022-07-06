@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">=1.0.0"
+  required_version = ">=1.2.4"
 
   # #Azurerm Backend https://www.terraform.io/docs/language/settings/backends/azurerm.html#
   backend "azurerm" {
