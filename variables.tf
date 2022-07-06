@@ -64,7 +64,7 @@ variable "sku" {
   type = object({
     name     = string
     tier     = string
-    capacity = optional(number)
+    capacity = number
   })
 }
 
@@ -72,7 +72,7 @@ variable "autoscale_configuration" {
   description = "Minimum or Maximum capacity for autoscaling. Accepted values are for Minimum in the range 0 to 100 and for Maximum in the range 2 to 125"
   type = object({
     min_capacity = number
-    max_capacity = optional(number)
+    max_capacity = number
   })
   default = null
 }
@@ -86,8 +86,8 @@ variable "backend_address_pools" {
   description = "List of backend address pools"
   type = list(object({
     name         = string
-    fqdns        = optional(list(string))
-    ip_addresses = optional(list(string))
+    fqdns        = list(string)
+    ip_addresses = list(string)
   }))
 }
 
@@ -96,21 +96,21 @@ variable "backend_http_settings" {
   type = list(object({
     name                                = string
     cookie_based_affinity               = string
-    affinity_cookie_name                = optional(string)
-    path                                = optional(string)
+    affinity_cookie_name                = string
+    path                                = string
     enable_https                        = bool
-    probe_name                          = optional(string)
+    probe_name                          = string
     request_timeout                     = number
-    host_name                           = optional(string)
-    pick_host_name_from_backend_address = optional(bool)
-    authentication_certificate = optional(object({
+    host_name                           = string
+    pick_host_name_from_backend_address = bool
+    authentication_certificate = object({
       name = string
-    }))
-    trusted_root_certificate_names = optional(list(string))
-    connection_draining = optional(object({
+    })
+    trusted_root_certificate_names = list(string)
+    connection_draining = object({
       enable_connection_draining = bool
       drain_timeout_sec          = number
-    }))
+    })
   }))
 }
 
@@ -118,16 +118,16 @@ variable "http_listeners" {
   description = "List of HTTP/HTTPS listeners. SSL Certificate name is required"
   type = list(object({
     name                 = string
-    host_name            = optional(string)
-    host_names           = optional(list(string))
-    require_sni          = optional(bool)
-    ssl_certificate_name = optional(string)
-    firewall_policy_id   = optional(string)
-    ssl_profile_name     = optional(string)
-    custom_error_configuration = optional(list(object({
+    host_name            = string
+    host_names           = list(string)
+    require_sni          = bool
+    ssl_certificate_name = string
+    firewall_policy_id   = string
+    ssl_profile_name     = string
+    custom_error_configuration = list(object({
       status_code           = string
       custom_error_page_url = string
-    })))
+    }))
   }))
 }
 
@@ -137,11 +137,11 @@ variable "request_routing_rules" {
     name                        = string
     rule_type                   = string
     http_listener_name          = string
-    backend_address_pool_name   = optional(string)
-    backend_http_settings_name  = optional(string)
-    redirect_configuration_name = optional(string)
-    rewrite_rule_set_name       = optional(string)
-    url_path_map_name           = optional(string)
+    backend_address_pool_name   = string
+    backend_http_settings_name  = string
+    redirect_configuration_name = string
+    rewrite_rule_set_name       = string
+    url_path_map_name           = string
   }))
   default = []
 }
@@ -172,11 +172,11 @@ variable "trusted_root_certificates" {
 variable "ssl_policy" {
   description = "Application Gateway SSL configuration"
   type = object({
-    disabled_protocols   = optional(list(string))
-    policy_type          = optional(string)
-    policy_name          = optional(string)
-    cipher_suites        = optional(list(string))
-    min_protocol_version = optional(string)
+    disabled_protocols   = list(string)
+    policy_type          = string
+    policy_name          = string
+    cipher_suites        = list(string)
+    min_protocol_version = string
   })
   default = null
 }
@@ -185,9 +185,9 @@ variable "ssl_certificates" {
   description = "List of SSL certificates data for Application gateway"
   type = list(object({
     name                = string
-    data                = optional(string)
-    password            = optional(string)
-    key_vault_secret_id = optional(string)
+    data                = string
+    password            = string
+    key_vault_secret_id = string
   }))
   default = []
 }
@@ -201,13 +201,13 @@ variable "health_probes" {
     path                                      = string
     timeout                                   = number
     unhealthy_threshold                       = number
-    port                                      = optional(number)
-    pick_host_name_from_backend_http_settings = optional(bool)
-    minimum_servers                           = optional(number)
-    match = optional(object({
-      body        = optional(string)
-      status_code = optional(list(string))
-    }))
+    port                                      = number
+    pick_host_name_from_backend_http_settings = bool
+    minimum_servers                           = number
+    match = object({
+      body        = string
+      status_code = list(string)
+    })
   }))
   default = []
 }
@@ -216,18 +216,18 @@ variable "url_path_maps" {
   description = "List of URL path maps associated to path-based rules."
   type = list(object({
     name                                = string
-    default_backend_http_settings_name  = optional(string)
-    default_backend_address_pool_name   = optional(string)
-    default_redirect_configuration_name = optional(string)
-    default_rewrite_rule_set_name       = optional(string)
+    default_backend_http_settings_name  = string
+    default_backend_address_pool_name   = string
+    default_redirect_configuration_name = string
+    default_rewrite_rule_set_name       = string
     path_rules = list(object({
       name                        = string
-      backend_address_pool_name   = optional(string)
-      backend_http_settings_name  = optional(string)
+      backend_address_pool_name   = string
+      backend_http_settings_name  = string
       paths                       = list(string)
-      redirect_configuration_name = optional(string)
-      rewrite_rule_set_name       = optional(string)
-      firewall_policy_id          = optional(string)
+      redirect_configuration_name = string
+      rewrite_rule_set_name       = string
+      firewall_policy_id          = string
     }))
   }))
   default = []
@@ -256,18 +256,18 @@ variable "waf_configuration" {
   type = object({
     firewall_mode            = string
     rule_set_version         = string
-    file_upload_limit_mb     = optional(number)
-    request_body_check       = optional(bool)
-    max_request_body_size_kb = optional(number)
-    disabled_rule_group = optional(list(object({
+    file_upload_limit_mb     = number
+    request_body_check       = bool
+    max_request_body_size_kb = number
+    disabled_rule_group = list(object({
       rule_group_name = string
-      rules           = optional(list(string))
-    })))
-    exclusion = optional(list(object({
+      rules           = list(string)
+    }))
+    exclusion = list(object({
       match_variable          = string
-      selector_match_operator = optional(string)
-      selector                = optional(string)
-    })))
+      selector_match_operator = string
+      selector                = string
+    }))
   })
   default = null
 }
