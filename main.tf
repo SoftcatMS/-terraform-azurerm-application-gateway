@@ -15,9 +15,7 @@ locals {
 # Resource Group, VNet, Subnet selection & Random Resources
 #----------------------------------------------------------
 data "azurerm_resource_group" "rgrp" {
-  name     = var.resource_group_name
-  location = var.location
-
+  name = var.resource_group_name
 }
 
 data "azurerm_virtual_network" "vnet" {
