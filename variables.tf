@@ -89,6 +89,7 @@ variable "backend_address_pools" {
     fqdns        = list(string)
     ip_addresses = list(string)
   }))
+  default = []
 }
 
 variable "backend_http_settings" {
@@ -112,6 +113,7 @@ variable "backend_http_settings" {
       drain_timeout_sec          = number
     })
   }))
+  default = []
 }
 
 variable "http_listeners" {
@@ -129,6 +131,7 @@ variable "http_listeners" {
       custom_error_page_url = string
     }))
   }))
+  default = []
 }
 
 variable "request_routing_rules" {
