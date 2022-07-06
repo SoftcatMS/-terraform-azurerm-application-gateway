@@ -107,9 +107,6 @@ module "application-gateway" {
     }
   ]
 
-  # A list with a single user managed identity id to be assigned to access Keyvault
-  identity_ids = ["${azurerm_user_assigned_identity.example.id}"]
-
   # (Optional) To enable Azure Monitoring for Azure Application Gateway
   # (Optional) Specify `storage_account_name` to save monitoring logs to storage. 
   log_analytics_workspace_name = "loganalytics-uks-sharedtest2"
