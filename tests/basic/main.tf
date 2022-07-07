@@ -3,6 +3,11 @@ resource "azurerm_resource_group" "rg-appgw-test-basic" {
   location = "UK South"
 }
 
+resource "azurerm_user_assigned_identity" "appgw-user-test-basic" {
+  resource_group_name = azurerm_resource_group.rg-appgw-test-basic.name
+  location            = azurerm_resource_group.rg-appgw-test-basic.location
+  name                = "appgw-api-test-basic"
+}
 
 module "vnet" {
 
@@ -62,7 +67,7 @@ module "application-gateway" {
       path                  = "/"
       enable_https          = false
       request_timeout       = 30
-      # probe_name            = "appgw-testgateway-basic-uksouth-probe1" # Remove this if `health_probes` object is not defined.
+      probe_name            = "appgw-testgateway-uksouth-probe1" # Remove this if `health_probes` object is not defined.
       connection_draining = {
         enable_connection_draining = true
         drain_timeout_sec          = 300
@@ -107,16 +112,29 @@ module "application-gateway" {
     }
   ]
 
+  health_probes = [
+    {
+      name                = "appgw-testgateway-uksouth-probe1"
+      host                = "127.0.0.1"
+      interval            = 30
+      path                = "/"
+      port                = 80
+      timeout             = 30
+      unhealthy_threshold = 3
+    }
+  ]
+
+  # A list with a single user managed identity id to be assigned to access Keyvault
+  identity_ids = [azurerm_user_assigned_identity.appgw-user-test-basic.id]
+
   # (Optional) To enable Azure Monitoring for Azure Application Gateway
   # (Optional) Specify `storage_account_name` to save monitoring logs to storage. 
+  #log_analytics_workspace_name = "loganalytics-uks-basic-test"
 
   # Adding TAG's to Azure resources
   tags = {
-    ProjectName  = "basic-internal"
-    Env          = "dev"
-    Owner        = "user@example.com"
-    BusinessUnit = "CORP"
-    ServiceClass = "Gold"
+    environment = "test"
+    engineer    = "ci/cd"
   }
 
   depends_on = [module.vnet]
