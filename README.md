@@ -1,4 +1,4 @@
-# Module name using following format (<provider>-terraform-<description>, example: azure-terraform-vnet) 
+# terraform-azurerm-application-gateway
 
 Deploys a Application Gateway in Azure
 
