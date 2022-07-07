@@ -1,4 +1,6 @@
 terraform {
+  # Enable experimental features.
+  # optional_attrs will be released in v1.3.0 (https://github.com/hashicorp/terraform/blob/main/CHANGELOG.md)
   experiments = [module_variable_optional_attrs]
 }
 

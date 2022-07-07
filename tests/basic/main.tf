@@ -129,9 +129,8 @@ module "application-gateway" {
 
   # (Optional) To enable Azure Monitoring for Azure Application Gateway
   # (Optional) Specify `storage_account_name` to save monitoring logs to storage. 
-  #log_analytics_workspace_name = "loganalytics-uks-basic-test"
+  log_analytics_workspace_name = "loganalytics-uks-basic-test"
 
-  # Adding TAG's to Azure resources
   tags = {
     environment = "test"
     engineer    = "ci/cd"
