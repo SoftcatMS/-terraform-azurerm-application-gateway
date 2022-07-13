@@ -50,7 +50,7 @@ stages:
           backendServiceArm: 'sandbox-terraform-testing-spn'
           backendAzureRmResourceGroupName: 'rg-terraform-modules-state'
           backendAzureRmStorageAccountName: 'softcatmodulestate'
-          backendAzureRmContainerName: 'tf-modules-azure-<MODULE_NAME>-basic'
+          backendAzureRmContainerName: 'tf-modules-azure-appgw-basic'
           backendAzureRmKey: 'terraform.tfstate'
 
       - task: TerraformTaskV2@2
@@ -76,40 +76,40 @@ stages:
           workingDirectory: 'tests/basic/'
           environmentServiceNameAzureRM: 'sandbox-terraform-testing-spn'
 
-      - task: TerraformTaskV2@2
-        displayName: Init Advanced
-        inputs:
-          provider: 'azurerm'
-          command: 'init'
-          workingDirectory: 'tests/advanced/'
-          backendServiceArm: 'sandbox-terraform-testing-spn'
-          backendAzureRmResourceGroupName: 'rg-terraform-modules-state'
-          backendAzureRmStorageAccountName: 'softcatmodulestate'
-          backendAzureRmContainerName: 'tf-modules-azure-<MODULE_NAME>-advanced'
-          backendAzureRmKey: 'terraform.tfstate'
+      # - task: TerraformTaskV2@2
+      #   displayName: Init Advanced
+      #   inputs:
+      #     provider: 'azurerm'
+      #     command: 'init'
+      #     workingDirectory: 'tests/advanced/'
+      #     backendServiceArm: 'sandbox-terraform-testing-spn'
+      #     backendAzureRmResourceGroupName: 'rg-terraform-modules-state'
+      #     backendAzureRmStorageAccountName: 'softcatmodulestate'
+      #     backendAzureRmContainerName: 'tf-modules-azure-appgw-advanced'
+      #     backendAzureRmKey: 'terraform.tfstate'
 
-      - task: TerraformTaskV2@2
-        displayName: Validate Advanced
-        inputs:
-          provider: 'azurerm'
-          command: 'validate'
-          workingDirectory: 'tests/advanced/'
+      # - task: TerraformTaskV2@2
+      #   displayName: Validate Advanced
+      #   inputs:
+      #     provider: 'azurerm'
+      #     command: 'validate'
+      #     workingDirectory: 'tests/advanced/'
 
-      - task: TerraformTaskV2@2
-        displayName: Plan Advanced
-        inputs:
-          provider: 'azurerm'
-          command: 'plan'
-          workingDirectory: 'tests/advanced/'
-          environmentServiceNameAzureRM: 'sandbox-terraform-testing-spn'
+      # - task: TerraformTaskV2@2
+      #   displayName: Plan Advanced
+      #   inputs:
+      #     provider: 'azurerm'
+      #     command: 'plan'
+      #     workingDirectory: 'tests/advanced/'
+      #     environmentServiceNameAzureRM: 'sandbox-terraform-testing-spn'
 
-      - task: TerraformTaskV2@2
-        displayName: Apply Advanced
-        inputs:
-          provider: 'azurerm'
-          command: 'apply'
-          workingDirectory: 'tests/advanced/'
-          environmentServiceNameAzureRM: 'sandbox-terraform-testing-spn'
+      # - task: TerraformTaskV2@2
+      #   displayName: Apply Advanced
+      #   inputs:
+      #     provider: 'azurerm'
+      #     command: 'apply'
+      #     workingDirectory: 'tests/advanced/'
+      #     environmentServiceNameAzureRM: 'sandbox-terraform-testing-spn'
 
   - stage: QC
     displayName: QC
@@ -146,15 +146,15 @@ stages:
         displayName: Run Basic QC
         continueOnError: true
 
-      - bash: |
-            inspec exec tests/advanced/azure-inspec-tests  -t azure:// --chef-license=accept
-        env:
-            AZURE_CLIENT_ID: $(CLIENTID)
-            AZURE_CLIENT_SECRET: $(CLIENTSECRET)
-            AZURE_SUBSCRIPTION_ID: $(SUBSCRIPTIONID)
-            AZURE_TENANT_ID: $(TENANTID)
-        displayName: Run Advanced QC
-        continueOnError: true
+      # - bash: |
+      #       inspec exec tests/advanced/azure-inspec-tests  -t azure:// --chef-license=accept
+      #   env:
+      #       AZURE_CLIENT_ID: $(CLIENTID)
+      #       AZURE_CLIENT_SECRET: $(CLIENTSECRET)
+      #       AZURE_SUBSCRIPTION_ID: $(SUBSCRIPTIONID)
+      #       AZURE_TENANT_ID: $(TENANTID)
+      #   displayName: Run Advanced QC
+      #   continueOnError: true
 
 
 
@@ -181,7 +181,7 @@ stages:
           backendServiceArm: 'sandbox-terraform-testing-spn'
           backendAzureRmResourceGroupName: 'rg-terraform-modules-state'
           backendAzureRmStorageAccountName: 'softcatmodulestate'
-          backendAzureRmContainerName: 'tf-modules-azure-<MODULE_NAME>-basic'
+          backendAzureRmContainerName: 'tf-modules-azure-appgw-basic'
           backendAzureRmKey: 'terraform.tfstate'
 
       - task: TerraformTaskV2@2
@@ -192,22 +192,22 @@ stages:
           workingDirectory: 'tests/basic/'
           environmentServiceNameAzureRM: 'sandbox-terraform-testing-spn'
 
-      - task: TerraformTaskV2@2
-        displayName: Init Advanced
-        inputs:
-          provider: 'azurerm'
-          command: 'init'
-          workingDirectory: 'tests/advanced/'
-          backendServiceArm: 'sandbox-terraform-testing-spn'
-          backendAzureRmResourceGroupName: 'rg-terraform-modules-state'
-          backendAzureRmStorageAccountName: 'softcatmodulestate'
-          backendAzureRmContainerName: 'tf-modules-azure-<MODULE_NAME>-advanced'
-          backendAzureRmKey: 'terraform.tfstate'
+      # - task: TerraformTaskV2@2
+      #   displayName: Init Advanced
+      #   inputs:
+      #     provider: 'azurerm'
+      #     command: 'init'
+      #     workingDirectory: 'tests/advanced/'
+      #     backendServiceArm: 'sandbox-terraform-testing-spn'
+      #     backendAzureRmResourceGroupName: 'rg-terraform-modules-state'
+      #     backendAzureRmStorageAccountName: 'softcatmodulestate'
+      #     backendAzureRmContainerName: 'tf-modules-azure-appgw-advanced'
+      #     backendAzureRmKey: 'terraform.tfstate'
 
-      - task: TerraformTaskV2@2
-        displayName: Destroy Advanced
-        inputs:
-          provider: 'azurerm'
-          command: 'destroy'
-          workingDirectory: 'tests/advanced/'
-          environmentServiceNameAzureRM: 'sandbox-terraform-testing-spn'
+      # - task: TerraformTaskV2@2
+      #   displayName: Destroy Advanced
+      #   inputs:
+      #     provider: 'azurerm'
+      #     command: 'destroy'
+      #     workingDirectory: 'tests/advanced/'
+      #     environmentServiceNameAzureRM: 'sandbox-terraform-testing-spn'
