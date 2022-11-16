@@ -12,7 +12,7 @@ resource "azurerm_user_assigned_identity" "appgw-user-test-basic" {
 module "vnet" {
 
   source              = "github.com/SoftcatMS/azure-terraform-vnet"
-  vnet_name           = "vnet-test-basic"
+  vnet_name           = "vnet-appgw-test-basic"
   resource_group_name = azurerm_resource_group.rg-appgw-test-basic.name
   address_space       = ["10.1.0.0/16"]
   subnet_prefixes     = ["10.1.1.0/24"]
@@ -33,7 +33,7 @@ module "application-gateway" {
   location             = azurerm_resource_group.rg-appgw-test-basic.location
   virtual_network_name = module.vnet.vnet_name
   subnet_name          = "subnet1"
-  app_gateway_name     = "appgw-test-basic"
+  app_gateway_name     = "test-basic"
 
   # SKU requires `name`, `tier` to use for this Application Gateway
   # `Capacity` property is optional if `autoscale_configuration` is set
@@ -105,6 +105,7 @@ module "application-gateway" {
   request_routing_rules = [
     {
       name                       = "appgw-testgateway-basic-uksouth-be-rqrt"
+      priority                   = 10
       rule_type                  = "Basic"
       http_listener_name         = "appgw-testgateway-basic-uksouth-be-htln01"
       backend_address_pool_name  = "appgw-testgateway-basic-uksouth-bapool01"
