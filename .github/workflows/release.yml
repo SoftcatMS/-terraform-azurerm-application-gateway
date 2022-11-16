@@ -37,3 +37,4 @@ jobs:
       with:
         tag_name: ${{steps.bump_version.outputs.tag}}
         body: ${{steps.changelog.outputs.changelog}} # Adds Changelog differences between latest git references to release
+
