@@ -1,4 +1,6 @@
-# terraform-azurerm-application-gateway [![Latest Release](https://img.shields.io/github/release-date/softcatms/terraform-azure-application-gateway?style=plastic)](https://github.com/softcatms/terraform-azurerm-application-gateway/releases/latest)
+[![Build Status](https://dev.azure.com/SoftcatMS/SoftcatMS%20Terraform%20Modules/_apis/build/status/SoftcatMS.terraform-azure-application-gateway?branchName=refs%2Fpull%2F2%2Fmerge)](https://dev.azure.com/SoftcatMS/SoftcatMS%20Terraform%20Modules/_build/latest?definitionId=18&branchName=refs%2Fpull%2F2%2Fmerge)
+
+# terraform-azurerm-application-gateway  
 
 Deploys a Application Gateway in Azure
 
