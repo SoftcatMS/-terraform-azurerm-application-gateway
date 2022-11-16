@@ -17,7 +17,7 @@ jobs:
     # To bump Patch version v1.1.1 use #patch in commit message
     - name: Bump version and push tag
       id: bump_version
-      uses: anothrNick/github-tag-action@1.36.0 # https://github.com/anothrNick/github-tag-action
+      uses: anothrNick/github-tag-action@ce4b5ffa38e072fa7a901e417253c438fcc2ccce # https://github.com/anothrNick/github-tag-action
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true # Append version number with 'v'
