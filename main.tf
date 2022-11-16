@@ -186,6 +186,7 @@ resource "azurerm_application_gateway" "main" {
     content {
       name                        = request_routing_rule.value.name
       rule_type                   = lookup(request_routing_rule.value, "rule_type", "Basic")
+      priority                    = request_routing_rule.value.priority
       http_listener_name          = request_routing_rule.value.http_listener_name
       backend_address_pool_name   = request_routing_rule.value.redirect_configuration_name == null ? request_routing_rule.value.backend_address_pool_name : null
       backend_http_settings_name  = request_routing_rule.value.redirect_configuration_name == null ? request_routing_rule.value.backend_http_settings_name : null

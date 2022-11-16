@@ -1,8 +1,8 @@
-terraform {
-  # Enable experimental features.
-  # optional_attrs will be released in v1.3.0 (https://github.com/hashicorp/terraform/blob/main/CHANGELOG.md)
-  experiments = [module_variable_optional_attrs]
-}
+# terraform {
+#   # Enable experimental features.
+#   # optional_attrs will be released in v1.3.0 (https://github.com/hashicorp/terraform/blob/main/CHANGELOG.md)
+#   experiments = [module_variable_optional_attrs]
+# }
 
 variable "resource_group_name" {
   description = "A container that holds related resources for an Azure solution"
@@ -141,6 +141,7 @@ variable "request_routing_rules" {
   description = "List of Request routing rules to be used for listeners."
   type = list(object({
     name                        = string
+    priority                    = number
     rule_type                   = string
     http_listener_name          = string
     backend_address_pool_name   = optional(string)
