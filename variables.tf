@@ -141,6 +141,7 @@ variable "request_routing_rules" {
   description = "List of Request routing rules to be used for listeners."
   type = list(object({
     name                        = string
+    priority                    = number
     rule_type                   = string
     http_listener_name          = string
     backend_address_pool_name   = optional(string)
